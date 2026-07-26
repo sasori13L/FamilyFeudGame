@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Feud - Master Control</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Sound effects: replace these src paths with your own audio files -->
+<audio id="wrong" src="audio/wrong.mp3" preload="auto"></audio>
+<audio id="correct" src="audio/correct.mp3" preload="auto"></audio>
+<audio id="theme" src="audio/theme.mp3" preload="auto"></audio>
+
+<!-- X-strike overlay images: replace these src paths with your own images -->
+<img id="wrongImagePerTeam1" class="wrongImagePerTeam1" src="images/wrong1.png" alt="" style="display:none;">
+<img id="wrongImage1" src="images/wrong1.png" alt="" style="display:none;">
+<img id="wrongImage2" src="images/wrong2.png" alt="" style="display:none;">
+<img id="wrongImage3" src="images/wrong3.png" alt="" style="display:none;">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    // Base path used to build image URLs (e.g. domain + "images/wrong1.png").
+    // Keep this as "./" if images/ sits next to this HTML file.
+    var domain = "./";
+</script>
+<script src="main.js"></script>
+<script src="master.js"></script>
+
+</body>
+</html>
