@@ -17,6 +17,8 @@ var app = {
       team2 +
       "</div>" +
       "<div id='wrongScore' class='score button' hidden>0</div>" +
+      "<div data-team='1' id='awardTeam1' hidden>0</div>" +
+      "<div data-team='2' id='awardTeam2' hidden>0</div>" +
       "<!--- Question --->" +
       "<div class='questionHolder'>" +
       "<div class='questionHide'>" +

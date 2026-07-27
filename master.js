@@ -46,9 +46,6 @@ var app = {
       "<div id='resetGame' class='button'>Reset Game</div>" +
       "<div id='importQuestions' class='button'>Import JSON</div>" +
       "<div id='resetQuestions' class='button'>Default Questions</div>" +
-      "</div></div>" +
-      "<div class=''><span>Game Settings</span>" +
-      "<div class='buttonWrapper'>" +
       "<div id='toggleLock' class='button'>Lock Player</div>" +
       "</div></div>" +
       "<input type='file' id='importQuestionsInput' accept='application/json,.json' style='display:none;'>" +
