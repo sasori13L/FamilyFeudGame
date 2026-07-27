@@ -1,7 +1,6 @@
 var app = {
   version: 1,
   currentQ: 0,
-  jsonFile: "../../sample_question.json",
   board: $(
     "<div class='gameBoard masterBoard'>" +
       "<!--- Scores --->" +
@@ -112,7 +111,9 @@ var app = {
     if (typeof questionsData !== "undefined") {
       app.jsonLoaded(questionsData);
     } else {
-      $.getJSON(app.jsonFile, app.jsonLoaded);
+      console.error(
+        "questionsData is not defined. Make sure questions.js is loaded before master.js.",
+      );
     }
   },
   jsonLoaded: function (data) {
@@ -476,7 +477,9 @@ var app = {
     if (typeof questionsData !== "undefined") {
       applyDefault(questionsData);
     } else {
-      $.getJSON(app.jsonFile, applyDefault);
+      console.error(
+        "questionsData is not defined. Make sure questions.js is loaded before master.js.",
+      );
     }
   },
   updateLockButtonLabel: function () {

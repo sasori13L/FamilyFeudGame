@@ -3,7 +3,6 @@ var team2 = "Team B";
 var app = {
   version: 1,
   currentQ: 0,
-  jsonFile: "../../sample_question.json",
   board: $(
     "<div class='gameBoard playersBoard'>" +
       "<!--- Scores --->" +
@@ -85,7 +84,9 @@ var app = {
     if (typeof questionsData !== "undefined") {
       app.jsonLoaded(questionsData);
     } else {
-      $.getJSON(app.jsonFile, app.jsonLoaded);
+      console.error(
+        "questionsData is not defined. Make sure questions.js is loaded before players.js.",
+      );
     }
   },
   jsonLoaded: function (data) {
@@ -441,7 +442,9 @@ function reloadQuestions() {
   if (typeof questionsData !== "undefined") {
     applyData(questionsData);
   } else {
-    $.getJSON(app.jsonFile, applyData);
+    console.error(
+      "questionsData is not defined. Make sure questions.js is loaded before players.js.",
+    );
   }
 }
 
