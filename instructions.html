@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Feud - How to Use the System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="contentPage">
+      <div class="card">
+        <h1>How to Use the System</h1>
+        <p class="subtitle">Setup and controls for hosting a game.</p>
+
+        <section>
+          <h2>1. Open the two screens</h2>
+          <ul>
+            <li>
+              <strong>Master Screen</strong> (<code>master.html</code>) — this
+              is for the host only. It has all the controls: awarding points,
+              flipping cards, marking wrong answers, and managing questions.
+            </li>
+            <li>
+              <strong>Player Screen</strong> (<code>players.html</code>) — this
+              is what your players/audience see. Put this on a second monitor,
+              TV, or projector.
+            </li>
+          </ul>
+          <p>
+            <strong>Important:</strong> open both screens in the
+            <em>same browser</em> on the <em>same device</em> (e.g. two tabs, or
+            one tab mirrored/extended to a second display). The two screens sync
+            with each other using the browser's local storage, which only works
+            within one browser on one device — it will not sync across two
+            separate computers or phones.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. Master screen controls</h2>
+          <ul>
+            <li>
+              <strong>Wrong Answers</strong> — the X button adds a strike; the
+              reverse arrow undoes the last strike (up to 3 strikes).
+            </li>
+            <li>
+              <strong>Theme Music</strong> — play/stop background music (add
+              your own audio file at <code>audio/theme.mp3</code>).
+            </li>
+            <li>
+              <strong>Round Actions</strong> — click a team's card to award them
+              the current revealed points, or click "Next Round" to move to the
+              next question.
+            </li>
+            <li>
+              <strong>Game Actions</strong> — reset the whole game, import a
+              custom question set (JSON file), or switch back to the default
+              questions.
+            </li>
+            <li>
+              <strong>Lock Player</strong> — hides the player screen behind a
+              lock screen, useful between games or while setting up.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>3. Running a round</h2>
+          <ol>
+            <li>Click the question banner to reveal/hide the question.</li>
+            <li>Click an answer card to flip it and reveal the answer.</li>
+            <li>
+              Revealed points accumulate in the center score until you award
+              them to a team.
+            </li>
+            <li>
+              Click a team's award button to give them the accumulated points
+              for that round.
+            </li>
+            <li>Click "Next Round" to move on to the next question.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>4. Renaming teams</h2>
+          <p>
+            Click directly on a team's name on the master screen to rename them.
+            The new name updates on the player screen automatically.
+          </p>
+        </section>
+
+        <div class="navRow">
+          <a href="index.html">Home</a>
+          <a href="mechanics.html">Game Mechanics</a>
+          <a href="master.html">Master Screen</a>
+          <a href="players.html">Player Screen</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

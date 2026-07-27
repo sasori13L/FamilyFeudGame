@@ -539,3 +539,93 @@ body {
   left: 0;
   right: 0;
 }
+
+.contentPage {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
+}
+
+.contentPage .card {
+  max-width: 720px;
+  width: 100%;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+  text-align: center;
+}
+
+.contentPage h1 {
+  font-size: 42px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow:
+    2px 2px 6px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(255, 200, 0, 0.5);
+  margin: 0 0 10px;
+}
+
+.contentPage .subtitle {
+  font-size: 16px;
+  opacity: 0.85;
+  margin: 0 0 30px;
+}
+
+.contentPage section {
+  background: rgba(12, 71, 121, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 12px;
+  padding: 20px 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.35);
+  text-align: left;
+}
+
+.contentPage h2 {
+  margin-top: 0;
+  font-size: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 8px;
+}
+
+.contentPage p {
+  line-height: 1.6;
+}
+
+.contentPage ul,
+.contentPage ol {
+  margin: 10px 0 0;
+  padding-left: 22px;
+  line-height: 1.6;
+}
+
+.contentPage ul li,
+.contentPage ol li {
+  margin-bottom: 6px;
+}
+
+.contentPage .navRow {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.contentPage .navRow a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 12px 24px;
+  border: 2px solid white;
+  border-radius: 8px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+  box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
+  transition: transform 0.2s ease;
+}
+
+.contentPage .navRow a:hover {
+  transform: translateY(-2px);
+}
