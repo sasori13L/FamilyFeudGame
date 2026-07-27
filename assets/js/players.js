@@ -3,7 +3,7 @@ var team2 = "Team B";
 var app = {
   version: 1,
   currentQ: 0,
-  jsonFile: "Questions.json",
+  jsonFile: "../../sample_question.json",
   board: $(
     "<div class='gameBoard playersBoard'>" +
       "<!--- Scores --->" +
