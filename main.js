@@ -29,7 +29,7 @@ function renderWrongMarks(count) {
   var container = $("#wrongImagePerTeam");
   container.empty();
   for (var i = 0; i < count; i++) {
-    $("<img>", { src: domain + "public/images/wrong.png", alt: "" }).appendTo(
+    $("<img>", { src: domain + "images/wrong.png", alt: "" }).appendTo(
       container,
     );
   }

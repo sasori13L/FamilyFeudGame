@@ -95,7 +95,7 @@ body {
   max-height: 980px;
   min-width: 305px;
   margin: auto;
-  background: #0c4779 url("public/images/bgFF.svg") repeat center center;
+  background: #0c4779 url("images/bgFF.svg") repeat center center;
   -webkit-box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
   -moz-box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
   box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
@@ -500,7 +500,7 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 99999;
-  background: url("public/images/background.png");
+  background: url("images/background.png");
   background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
