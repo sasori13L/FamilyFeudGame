@@ -95,7 +95,7 @@ body {
   max-height: 980px;
   min-width: 305px;
   margin: auto;
-  background: #0c4779 url("images/bgFF.svg") repeat center center;
+  background: #0c4779 url("../images/background.svg") repeat center center;
   -webkit-box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
   -moz-box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
   box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
@@ -508,7 +508,7 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 99999;
-  background: url("images/background.png");
+  background: url("../images/background.png");
   background-size: 100% 100%;
   background-position: center center;
   background-repeat: no-repeat;
@@ -627,5 +627,24 @@ body {
 }
 
 .contentPage .navRow a:hover {
+  transform: translateY(-2px);
+}
+
+.contentPage .downloadBtn {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 12px 24px;
+  border: 2px solid white;
+  border-radius: 8px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+  box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
+  background: #8e44ad;
+  transition: transform 0.2s ease;
+}
+
+.contentPage .downloadBtn:hover {
   transform: translateY(-2px);
 }

@@ -27,13 +27,13 @@ var app = {
       "<div class='btnHolder'>" +
       "<div class=''><span>Wrong Answers</span>" +
       "<div class='buttonWrapper'>" +
-      "<div id='wrongTeam' class='button left'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/cross.png'></div>" +
-      "<div id='revertWrong' class='button right'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/reverse.png'></div>" +
+      "<div id='wrongTeam' class='button left'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='" + domain + "images/cross.png'></div>" +
+      "<div id='revertWrong' class='button right'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='" + domain + "images/reverse.png'></div>" +
       "</div></div>" +
       "<div class=''><span>Theme Music</span>" +
       "<div class='buttonWrapper'>" +
-      "<div id='playTheme' class='button'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/play.png'></div>" +
-      "<div id='stopTheme' class='button'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/stop.png'></div>" +
+      "<div id='playTheme' class='button'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='" + domain + "images/play.png'></div>" +
+      "<div id='stopTheme' class='button'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='" + domain + "images/stop.png'></div>" +
       "</div></div>" +
       "<div class=''><span>Round Actions</span>" +
       "<div class='buttonWrapper'>" +

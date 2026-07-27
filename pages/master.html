@@ -3,18 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Family Feud - Players</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Family Feud - Master Control</title>
+    <link rel="stylesheet" href="../assets/css/styles.css" />
   </head>
   <body>
-    <div id="lockScreen" class="lockScreen">
-      <div class="lockScreenInner"></div>
-    </div>
-
     <!-- Sound effects: replace these src paths with your own audio files -->
-    <audio id="wrong" src="audio/Wrong.mp3" preload="auto"></audio>
-    <audio id="correct" src="audio/Correct.mp3" preload="auto"></audio>
-    <audio id="theme" src="audio/Theme.mp3" preload="auto"></audio>
+    <audio id="wrong" src="../assets/audio/Wrong.mp3" preload="auto"></audio>
+    <audio id="correct" src="../assets/audio/Correct.mp3" preload="auto"></audio>
+    <audio id="theme" src="../assets/audio/Theme.mp3" preload="auto"></audio>
 
     <!-- X-strike overlay images: replace these src paths with your own images -->
     <!-- Container that gets filled with repeated copies of wrong.png,
@@ -24,16 +20,16 @@
       class="wrongImagePerTeam"
       style="display: none"
     ></div>
-    <img id="wrongImage" src="images/wrong.png" alt="" style="display: none" />
+    <img id="wrongImage" src="../assets/images/wrong.png" alt="" style="display: none" />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="questions.js"></script>
+    <script src="../assets/js/questions.js"></script>
     <script>
       // Base path used to build image URLs (e.g. domain + "images/wrong.png").
       // Keep this as "./" if images/ sits next to this HTML file.
-      var domain = "./";
+      var domain = "../assets/";
     </script>
-    <script src="main.js"></script>
-    <script src="players.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/master.js"></script>
   </body>
 </html>
