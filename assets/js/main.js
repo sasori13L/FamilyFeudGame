@@ -23,8 +23,6 @@ function resetWrong() {
   $("#wrongScore").html("0");
 }
 
-// Renders `count` copies of wrong.png side by side in the per-team strike
-// indicator, instead of swapping in separate wrong2.png / wrong3.png files.
 function renderWrongMarks(count) {
   var container = $("#wrongImagePerTeam");
   container.empty();

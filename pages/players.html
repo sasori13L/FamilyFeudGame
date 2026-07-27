@@ -11,26 +11,29 @@
       <div class="lockScreenInner"></div>
     </div>
 
-    <!-- Sound effects: replace these src paths with your own audio files -->
     <audio id="wrong" src="../assets/audio/Wrong.mp3" preload="auto"></audio>
-    <audio id="correct" src="../assets/audio/Correct.mp3" preload="auto"></audio>
+    <audio
+      id="correct"
+      src="../assets/audio/Correct.mp3"
+      preload="auto"
+    ></audio>
     <audio id="theme" src="../assets/audio/Theme.mp3" preload="auto"></audio>
 
-    <!-- X-strike overlay images: replace these src paths with your own images -->
-    <!-- Container that gets filled with repeated copies of wrong.png,
-         one per strike, instead of separate wrong2.png/wrong3.png files -->
     <div
       id="wrongImagePerTeam"
       class="wrongImagePerTeam"
       style="display: none"
     ></div>
-    <img id="wrongImage" src="../assets/images/wrong.png" alt="" style="display: none" />
+    <img
+      id="wrongImage"
+      src="../assets/images/wrong.png"
+      alt=""
+      style="display: none"
+    />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="../assets/js/questions.js"></script>
     <script>
-      // Base path used to build image URLs (e.g. domain + "images/wrong.png").
-      // Keep this as "./" if images/ sits next to this HTML file.
       var domain = "../assets/";
     </script>
     <script src="../assets/js/main.js"></script>

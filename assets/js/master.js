@@ -575,9 +575,6 @@ function addWrong() {
 function renameTeam(teamNum, name) {
   app.applyTeamName(teamNum, name);
   console.log("Renamed team " + teamNum + " to " + name);
-  // JSON-encode so the players tab can parse teamNum/name back out correctly
-  // (a plain array gets coerced to a comma-joined string by localStorage,
-  // which corrupts any name containing more than one character).
   localStorage.setItem(
     "teamName",
     JSON.stringify([teamNum, name, Math.floor(Math.random() * 100)]),
