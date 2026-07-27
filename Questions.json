@@ -1,88 +1,92 @@
 {
-    "rounds": [
+  "rounds": [
+    {
+      "round": 1,
+      "question": "Name a popular first job for a Cebu fresh grad",
+      "answers": [
+        { "rank": 1, "answer": "Call center or BPO agent", "points": 28 },
+        { "rank": 2, "answer": "Teacher", "points": 18 },
+        { "rank": 3, "answer": "Nurse", "points": 15 },
+        { "rank": 4, "answer": "Government employee", "points": 12 },
+        { "rank": 5, "answer": "Sales or retail associate", "points": 10 },
+        { "rank": 6, "answer": "Engineer", "points": 8 },
+        { "rank": 7, "answer": "Overseas worker (OFW)", "points": 6 },
+        { "rank": 8, "answer": "Family business", "points": 3 }
+      ]
+    },
+    {
+      "round": 2,
+      "question": "Name something a fresh graduates needs before job hunting",
+      "answers": [
+        { "rank": 1, "answer": "Resume or CV", "points": 30 },
+        { "rank": 2, "answer": "NBI clearance", "points": 20 },
+        { "rank": 3, "answer": "Transcript of records (TOR)", "points": 15 },
+        { "rank": 4, "answer": "Diploma", "points": 12 },
+        { "rank": 5, "answer": "PRC license", "points": 8 },
+        { "rank": 6, "answer": "Barangay clearance", "points": 6 },
+        { "rank": 7, "answer": "Professional attire", "points": 5 },
+        { "rank": 8, "answer": "SSS or TIN number", "points": 4 }
+      ]
+    },
+    {
+      "round": 3,
+      "question": "Name a struggle of a fresh graduate in Cebu",
+      "answers": [
+        { "rank": 1, "answer": "Heavy traffic", "points": 50 },
+        { "rank": 2, "answer": "Low starting salary", "points": 40 },
+        { "rank": 3, "answer": "Jobs requiring experience", "points": 36 },
+        { "rank": 4, "answer": "Cost of living in the city", "points": 24 },
         {
-            "round": 1,
-            "question": "Name a popular first job for a Cebu fresh grad",
-            "answers": [
-                { "rank": 1, "answer": "Call center or BPO agent", "points": 28 },
-                { "rank": 2, "answer": "Teacher", "points": 18 },
-                { "rank": 3, "answer": "Nurse", "points": 15 },
-                { "rank": 4, "answer": "Government employee", "points": 12 },
-                { "rank": 5, "answer": "Sales or retail associate", "points": 10 },
-                { "rank": 6, "answer": "Engineer", "points": 8 },
-                { "rank": 7, "answer": "Overseas worker (OFW)", "points": 6 },
-                { "rank": 8, "answer": "Family business", "points": 3 }
-            ]
+          "rank": 5,
+          "answer": "Choosing local job vs working abroad",
+          "points": 20
         },
-        {
-            "round": 2,
-            "question": "Name something a fresh graduates needs before job hunting",
-            "answers": [
-                { "rank": 1, "answer": "Resume or CV", "points": 30 },
-                { "rank": 2, "answer": "NBI clearance", "points": 20 },
-                { "rank": 3, "answer": "Transcript of records (TOR)", "points": 15 },
-                { "rank": 4, "answer": "Diploma", "points": 12 },
-                { "rank": 5, "answer": "PRC license", "points": 8 },
-                { "rank": 6, "answer": "Barangay clearance", "points": 6 },
-                { "rank": 7, "answer": "Professional attire", "points": 5 },
-                { "rank": 8, "answer": "SSS or TIN number", "points": 4 }
-            ]
-        },
-        {
-            "round": 3,
-            "question": "Name a struggle of a fresh graduate in Cebu",
-            "answers": [
-                { "rank": 1, "answer": "Heavy traffic", "points": 50 },
-                { "rank": 2, "answer": "Low starting salary", "points": 40 },
-                { "rank": 3, "answer": "Jobs requiring experience", "points": 36 },
-                { "rank": 4, "answer": "Cost of living in the city", "points": 24 },
-                { "rank": 5, "answer": "Choosing local job vs working abroad", "points": 20 },
-                { "rank": 6, "answer": "Adjusting to office life", "points": 16 },
-                { "rank": 7, "answer": "Waiting for board exam results", "points": 8 },
-                { "rank": 8, "answer": "Tough job competition", "points": 6 }
-            ]
-        },
-        {
-            "round": 4,
-            "question": "Name a board exam Cebu fresh graduates take",
-            "answers": [
-                { "rank": 1, "answer": "Engineering board exam", "points": 50 },
-                { "rank": 2, "answer": "LET for teachers", "points": 40 },
-                { "rank": 3, "answer": "Nursing licensure exam", "points": 36 },
-                { "rank": 4, "answer": "CPA board exam", "points": 30 },
-                { "rank": 5, "answer": "Architecture board exam", "points": 20 },
-                { "rank": 6, "answer": "Criminology board exam", "points": 12 },
-                { "rank": 7, "answer": "Seafarer or maritime exam", "points": 8 },
-                { "rank": 8, "answer": "Bar exam for law", "points": 4 }
-            ]
-        },
-        {
-            "round": 5,
-            "question": "Commonly served food on a graduation celebration",
-            "answers": [
-                { "rank": 1, "answer": "Lechon", "points": 105 },
-                { "rank": 2, "answer": "Spaghetti", "points": 75 },
-                { "rank": 3, "answer": "Fried Chicken", "points": 48 },
-                { "rank": 4, "answer": "Seafoods", "points": 30 },
-                { "rank": 5, "answer": "Cake", "points": 30 },
-                { "rank": 6, "answer": "Humba", "points": 24 },
-                { "rank": 7, "answer": "Pansit", "points": 18 },
-                { "rank": 8, "answer": "Tuslob Buwa", "points": 12 }
-            ]
-        },
-        {
-            "round": 6,
-            "question": "Name a place in Cebu new grads go to celebrate after graduation",
-            "answers": [
-                { "rank": 1, "answer": "Home", "points": 90 },
-                { "rank": 2, "answer": "Mall", "points": 60 },
-                { "rank": 3, "answer": "Restaurant", "points": 45 },
-                { "rank": 4, "answer": "Resort", "points": 36 },
-                { "rank": 5, "answer": "Samgyupsal", "points": 24 },
-                { "rank": 6, "answer": "Eat All You Can", "points": 21 },
-                { "rank": 7, "answer": "Park", "points": 15 },
-                { "rank": 8, "answer": "Cinema", "points": 9 }
-            ]
-        }
-    ]
+        { "rank": 6, "answer": "Adjusting to office life", "points": 16 },
+        { "rank": 7, "answer": "Waiting for board exam results", "points": 8 },
+        { "rank": 8, "answer": "Tough job competition", "points": 6 }
+      ]
+    },
+    {
+      "round": 4,
+      "question": "Name a board exam Cebu fresh graduates take",
+      "answers": [
+        { "rank": 1, "answer": "Engineering board exam", "points": 50 },
+        { "rank": 2, "answer": "LET for teachers", "points": 40 },
+        { "rank": 3, "answer": "Nursing licensure exam", "points": 36 },
+        { "rank": 4, "answer": "CPA board exam", "points": 30 },
+        { "rank": 5, "answer": "Architecture board exam", "points": 20 },
+        { "rank": 6, "answer": "Criminology board exam", "points": 12 },
+        { "rank": 7, "answer": "Seafarer or maritime exam", "points": 8 },
+        { "rank": 8, "answer": "Bar exam for law", "points": 4 }
+      ]
+    },
+    {
+      "round": 5,
+      "question": "Commonly served food on a graduation celebration",
+      "answers": [
+        { "rank": 1, "answer": "Lechon", "points": 105 },
+        { "rank": 2, "answer": "Spaghetti", "points": 75 },
+        { "rank": 3, "answer": "Fried Chicken", "points": 48 },
+        { "rank": 4, "answer": "Seafoods", "points": 30 },
+        { "rank": 5, "answer": "Cake", "points": 30 },
+        { "rank": 6, "answer": "Humba", "points": 24 },
+        { "rank": 7, "answer": "Pansit", "points": 18 },
+        { "rank": 8, "answer": "Tuslob Buwa", "points": 12 }
+      ]
+    },
+    {
+      "round": 6,
+      "question": "Name a place in Cebu new grads go to celebrate after graduation",
+      "answers": [
+        { "rank": 1, "answer": "Home", "points": 90 },
+        { "rank": 2, "answer": "Mall", "points": 60 },
+        { "rank": 3, "answer": "Restaurant", "points": 45 },
+        { "rank": 4, "answer": "Resort", "points": 36 },
+        { "rank": 5, "answer": "Samgyupsal", "points": 24 },
+        { "rank": 6, "answer": "Eat All You Can", "points": 21 },
+        { "rank": 7, "answer": "Park", "points": 15 },
+        { "rank": 8, "answer": "Cinema", "points": 9 }
+      ]
+    }
+  ]
 }

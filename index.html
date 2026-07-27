@@ -1,54 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Family Feud</title>
-<style>
-    html, body {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Family Feud</title>
+    <style>
+      html,
+      body {
         height: 100%;
         margin: 0;
         padding: 0;
-    }
+      }
 
-    body {
+      body {
         font-family: helvetica, sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
         min-height: 100%;
-        background: #0C4779;
+        background: #0c4779;
         /* Replace with your own background image filename */
         background-image:
-            linear-gradient(rgba(4, 20, 46, 0.55), rgba(4, 20, 46, 0.75)),
-            url('images/background.jpg');
+          linear-gradient(rgba(4, 20, 46, 0.55), rgba(4, 20, 46, 0.75)),
+          url("images/background.png");
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
-    }
+      }
 
-    .landing {
+      .landing {
         text-align: center;
         padding: 40px;
-    }
+      }
 
-    .landing h1 {
+      .landing h1 {
         color: white;
         font-size: 56px;
         letter-spacing: 4px;
         text-transform: uppercase;
-        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 200, 0, 0.5);
+        text-shadow:
+          2px 2px 6px rgba(0, 0, 0, 0.8),
+          0 0 30px rgba(255, 200, 0, 0.5);
         margin: 0 0 50px;
-    }
+      }
 
-    .buttonRow {
+      .buttonRow {
         display: flex;
         gap: 30px;
         justify-content: center;
         flex-wrap: wrap;
-    }
+      }
 
-    .landingBtn {
+      .landingBtn {
         display: inline-block;
         font-size: 26px;
         font-weight: bold;
@@ -61,38 +64,54 @@
         border-radius: 12px;
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
         box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
 
-    .landingBtn:hover {
+      .landingBtn:hover {
         transform: translateY(-4px);
         box-shadow: 0 6px 30px 2px rgba(0, 0, 0, 0.6);
-    }
+      }
 
-    .landingBtn:active {
+      .landingBtn:active {
         transform: translateY(0);
-    }
+      }
 
-    .masterBtn {
+      .masterBtn {
         background: #7db9e8;
-        background: linear-gradient(to bottom, #7db9e8 0%, #207cca 49%, #2989d8 50%, #1e5799 100%);
-    }
+        background: linear-gradient(
+          to bottom,
+          #7db9e8 0%,
+          #207cca 49%,
+          #2989d8 50%,
+          #1e5799 100%
+        );
+      }
 
-    .playersBtn {
+      .playersBtn {
         background: #cedbe9;
-        background: linear-gradient(to bottom, #cedbe9 0%, #aac5de 17%, #6199c7 50%, #3a84c3 51%, #419ad6 59%, #4bb8f0 71%, #3a8bc2 84%, #26558b 100%);
-    }
-</style>
-</head>
-<body>
-
-<div class="landing">
-    <h1>Family Feud</h1>
-    <div class="buttonRow">
+        background: linear-gradient(
+          to bottom,
+          #cedbe9 0%,
+          #aac5de 17%,
+          #6199c7 50%,
+          #3a84c3 51%,
+          #419ad6 59%,
+          #4bb8f0 71%,
+          #3a8bc2 84%,
+          #26558b 100%
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <div class="landing">
+      <h1>Family Feud</h1>
+      <div class="buttonRow">
         <a class="landingBtn masterBtn" href="master.html">Master</a>
         <a class="landingBtn playersBtn" href="players.html">Players</a>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>
