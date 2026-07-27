@@ -331,7 +331,7 @@ var app = {
     app.board.find("#teamLabel2").on("click", app.awardPoints);
     app.board.find("#awardTeam1").on("click", app.awardPoints);
     app.board.find("#awardTeam2").on("click", app.awardPoints);
-    app.board.find("#wrongTeam1").on("click", app.addWrong);
+    app.board.find("#wrongTeam").on("click", app.addWrong);
     app.board.find("#revertWrong").on("click", app.revertWrong);
     app.board.find(".questionHolder").on("click", app.showQuestion);
     app.board.find("#showControls").on("click", app.showControls);

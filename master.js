@@ -27,13 +27,13 @@ var app = {
       "<div class='btnHolder'>" +
       "<div class=''><span>Wrong Answers</span>" +
       "<div class='buttonWrapper'>" +
-      "<div id='wrongTeam1' class='button left'>X</div>" +
-      "<div id='revertWrong' class='button right'>&#8630;</div>" +
+      "<div id='wrongTeam' class='button left'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/cross.png'></div>" +
+      "<div id='revertWrong' class='button right'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/reverse.png'></div>" +
       "</div></div>" +
       "<div class=''><span>Theme Music</span>" +
       "<div class='buttonWrapper'>" +
-      "<div id='playTheme' class='button'>&rsaquo;</div>" +
-      "<div id='stopTheme' class='button'>&square;</div>" +
+      "<div id='playTheme' class='button'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/play.png'></div>" +
+      "<div id='stopTheme' class='button'><img style='width: 40px; height: 40px; filter: brightness(0) invert(1);' src='images/stop.png'></div>" +
       "</div></div>" +
       "<div class=''><span>Round Actions</span>" +
       "<div class='buttonWrapper'>" +
@@ -491,7 +491,7 @@ var app = {
     app.board.find("#newQuestion").on("click", app.changeQuestion);
     app.board.find("#awardTeam1").on("click", app.awardPoints);
     app.board.find("#awardTeam2").on("click", app.awardPoints);
-    app.board.find("#wrongTeam1").on("click", app.addWrong);
+    app.board.find("#wrongTeam").on("click", app.addWrong);
     app.board.find("#revertWrong").on("click", app.revertWrong);
     app.board.find("#playTheme").on("click", app.playTheme);
     app.board.find("#stopTheme").on("click", app.stopTheme);

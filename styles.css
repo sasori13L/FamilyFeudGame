@@ -438,7 +438,7 @@ body {
   background: rgba(222, 238, 255, 0.15);
 }
 
-#wrongTeam1 {
+#wrongTeam {
   background: red;
   width: 40px !important;
   height: 40px !important;
@@ -453,7 +453,15 @@ body {
 }
 
 #playTheme {
+  width: 40px !important;
+  height: 40px !important;
   background: #27ae60 !important;
+}
+
+#stopTheme {
+  width: 40px !important;
+  height: 40px !important;
+  background: #c0392b !important;
 }
 
 #showControls {
