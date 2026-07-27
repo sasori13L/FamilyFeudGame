@@ -12,9 +12,9 @@
     </div>
 
     <!-- Sound effects: replace these src paths with your own audio files -->
-    <audio id="wrong" src="audio/wrong.mp3" preload="auto"></audio>
-    <audio id="correct" src="audio/correct.mp3" preload="auto"></audio>
-    <audio id="theme" src="audio/theme.mp3" preload="auto"></audio>
+    <audio id="wrong" src="public/audio/wrong.mp3" preload="auto"></audio>
+    <audio id="correct" src="public/audio/correct.mp3" preload="auto"></audio>
+    <audio id="theme" src="public/audio/theme.mp3" preload="auto"></audio>
 
     <!-- X-strike overlay images: replace these src paths with your own images -->
     <!-- Container that gets filled with repeated copies of wrong.png,
@@ -24,13 +24,18 @@
       class="wrongImagePerTeam"
       style="display: none"
     ></div>
-    <img id="wrongImage" src="images/wrong.png" alt="" style="display: none" />
+    <img
+      id="wrongImage"
+      src="public/images/wrong.png"
+      alt=""
+      style="display: none"
+    />
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="questions.js"></script>
     <script>
-      // Base path used to build image URLs (e.g. domain + "images/wrong.png").
-      // Keep this as "./" if images/ sits next to this HTML file.
+      // Base path used to build image URLs (e.g. domain + "public/images/wrong.png").
+      // Keep this as "./" if public/images/ sits next to this HTML file.
       var domain = "./";
     </script>
     <script src="main.js"></script>
