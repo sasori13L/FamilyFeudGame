@@ -50,12 +50,9 @@ var app = {
       "</div></div>" +
       "<div class=''><span>Game Actions</span>" +
       "<div class='buttonWrapper'>" +
-      "<div id='importQuestions' class='button'>Import Questions</div>" +
-      "<div id='resetQuestions' class='button'>Default Questions</div>" +
       "<div id='toggleLock' class='button'>Lock Player</div>" +
       "<div id='resetGame' class='button'>Reset Game</div>" +
       "</div></div>" +
-      "<input type='file' id='importQuestionsInput' accept='application/json,.json' style='display:none;'>" +
       "</div>" +
       "</div>",
   ),
@@ -393,95 +390,6 @@ var app = {
     app.saveState();
     localStorage.setItem("resetGame", Math.floor(Math.random() * 100));
   },
-  importQuestions: function () {
-    app.board.find("#importQuestionsInput").trigger("click");
-  },
-  handleQuestionsFile: function (event) {
-    var file = event.target.files && event.target.files[0];
-    if (!file) return;
-    var reader = new FileReader();
-    reader.onload = function (e) {
-      var parsed;
-      try {
-        parsed = JSON.parse(e.target.result);
-      } catch (err) {
-        alert("That file is not valid JSON.");
-        return;
-      }
-      if (
-        !parsed ||
-        !Array.isArray(parsed.rounds) ||
-        parsed.rounds.length === 0
-      ) {
-        alert(
-          'That JSON doesn\'t look right \u2014 expected an object with a non-empty "rounds" array, like Questions.json.',
-        );
-        return;
-      }
-      localStorage.setItem("feudQuestionsData", JSON.stringify(parsed));
-      app.currentQ = 0;
-      app.allData = parsed.rounds;
-      app.questions = app.allData.map(function (r) {
-        return r.question;
-      });
-      app.board.find("#team1").html(0);
-      app.board.find("#team2").html(0);
-      resetWrong();
-      app.makeQuestion(app.currentQ);
-      app.saveState();
-      localStorage.setItem(
-        "questionsImported",
-        Math.floor(Math.random() * 100),
-      );
-      alert(
-        "Imported " +
-          app.allData.length +
-          " round(s). Both scores were reset to start the new set.",
-      );
-    };
-    reader.onerror = function () {
-      alert("Could not read that file.");
-    };
-    reader.readAsText(file);
-    event.target.value = "";
-  },
-  resetQuestions: function () {
-    if (!localStorage.getItem("feudQuestionsData")) {
-      alert("You're already using the default Questions.json.");
-      return;
-    }
-    if (
-      !confirm(
-        "Switch back to the default Questions.json? This clears your imported question set.",
-      )
-    ) {
-      return;
-    }
-    localStorage.removeItem("feudQuestionsData");
-    app.currentQ = 0;
-    function applyDefault(data) {
-      app.allData = data.rounds;
-      app.questions = app.allData.map(function (r) {
-        return r.question;
-      });
-      app.board.find("#team1").html(0);
-      app.board.find("#team2").html(0);
-      resetWrong();
-      app.makeQuestion(app.currentQ);
-      app.saveState();
-      localStorage.setItem(
-        "questionsImported",
-        Math.floor(Math.random() * 100),
-      );
-    }
-    if (typeof questionsData !== "undefined") {
-      applyDefault(questionsData);
-    } else {
-      console.error(
-        "questionsData is not defined. Make sure questions.js is loaded before master.js.",
-      );
-    }
-  },
   updateLockButtonLabel: function () {
     var isLocked = localStorage.getItem("feudLockScreen") === "true";
     app.board
@@ -504,11 +412,6 @@ var app = {
     app.board.find("#playTheme").on("click", app.playTheme);
     app.board.find("#stopTheme").on("click", app.stopTheme);
     app.board.find("#resetGame").on("click", app.resetGame);
-    app.board.find("#importQuestions").on("click", app.importQuestions);
-    app.board
-      .find("#importQuestionsInput")
-      .on("change", app.handleQuestionsFile);
-    app.board.find("#resetQuestions").on("click", app.resetQuestions);
     app.board.find("#toggleLock").on("click", app.toggleLockScreen);
     app.updateLockButtonLabel();
     app.board.find("#teamLabel1").on("click", function () {

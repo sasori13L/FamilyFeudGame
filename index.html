@@ -67,6 +67,11 @@
         transition:
           transform 0.2s ease,
           box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+
+      button.landingBtn {
+        font-family: inherit;
       }
 
       .landingBtn:hover {
@@ -93,19 +98,131 @@
       .mechanicsBtn {
         background: #27ae60;
       }
+
+      .importBtn {
+        background: #1f6feb;
+      }
+
+      .resetBtn {
+        background: #555b6e;
+      }
+
+      .questionsRow {
+        margin-top: 30px;
+      }
+
+      .questionsRow .landingBtn {
+        font-size: 18px;
+        padding: 16px 32px;
+      }
     </style>
   </head>
   <body>
     <div class="landing">
       <h1>Family Feud</h1>
       <div class="buttonRow">
-        <a class="landingBtn masterBtn" href="pages/master.html">Master Screen</a>
-        <a class="landingBtn playersBtn" href="pages/players.html">Player Screen</a>
+        <a class="landingBtn masterBtn" href="pages/master.html">Master</a>
+        <a class="landingBtn playersBtn" href="pages/players.html">Player</a>
         <a class="landingBtn instructionsBtn" href="pages/instructions.html"
           >How to Use</a
         >
-        <a class="landingBtn mechanicsBtn" href="pages/mechanics.html">How to Play</a>
+        <a class="landingBtn mechanicsBtn" href="pages/mechanics.html"
+          >How to Play</a
+        >
+      </div>
+      <div class="buttonRow questionsRow">
+        <button type="button" id="importQuestions" class="landingBtn importBtn">
+          Import Questions
+        </button>
+        <button type="button" id="resetQuestions" class="landingBtn resetBtn">
+          Reset Questions
+        </button>
+        <input
+          type="file"
+          id="importQuestionsInput"
+          accept="application/json,.json"
+          style="display: none"
+        />
       </div>
     </div>
+
+    <script src="assets/js/questions.js"></script>
+    <script>
+      function importQuestions() {
+        document.getElementById("importQuestionsInput").click();
+      }
+
+      function handleQuestionsFile(event) {
+        var file = event.target.files && event.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          var parsed;
+          try {
+            parsed = JSON.parse(e.target.result);
+          } catch (err) {
+            alert("That file is not valid JSON.");
+            return;
+          }
+          if (
+            !parsed ||
+            !Array.isArray(parsed.rounds) ||
+            parsed.rounds.length === 0
+          ) {
+            alert(
+              'That JSON doesn\'t look right \u2014 expected an object with a non-empty "rounds" array, like sample_question.json.',
+            );
+            return;
+          }
+          localStorage.setItem("feudQuestionsData", JSON.stringify(parsed));
+          localStorage.removeItem("feudGameState");
+          localStorage.setItem(
+            "questionsImported",
+            Math.floor(Math.random() * 100),
+          );
+          alert(
+            "Imported " +
+              parsed.rounds.length +
+              " round(s). Head to the Master Screen to start.",
+          );
+        };
+        reader.onerror = function () {
+          alert("Could not read that file.");
+        };
+        reader.readAsText(file);
+        event.target.value = "";
+      }
+
+      function resetQuestions() {
+        if (!localStorage.getItem("feudQuestionsData")) {
+          alert("You're already using the default sample_question.json.");
+          return;
+        }
+        if (
+          !confirm(
+            "Switch back to the default sample_question.json? This clears your imported question set.",
+          )
+        ) {
+          return;
+        }
+        localStorage.removeItem("feudQuestionsData");
+        localStorage.removeItem("feudGameState");
+        localStorage.setItem(
+          "questionsImported",
+          Math.floor(Math.random() * 100),
+        );
+        alert("Restored the default sample_question.json.");
+      }
+
+      document
+        .getElementById("importQuestions")
+        .addEventListener("click", importQuestions);
+      document
+        .getElementById("importQuestionsInput")
+        .addEventListener("change", handleQuestionsFile);
+      document
+        .getElementById("resetQuestions")
+        .addEventListener("click", resetQuestions);
+    </script>
   </body>
 </html>
