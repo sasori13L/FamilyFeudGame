@@ -1,6 +1,7 @@
 var app = {
   version: 1,
   currentQ: 0,
+  awardedCards: [],
   board: $(
     "<div class='gameBoard masterBoard'>" +
       "<!--- Scores --->" +
@@ -72,15 +73,38 @@ var app = {
     window.CP.exitedLoop(0);
     return array;
   },
-  saveState: function () {
+  saveState: function (roundScoreOverride, scoreOverride) {
     var state = {
       currentQ: app.currentQ,
-      team1: parseInt(app.board.find("#team1").html()) || 0,
-      team2: parseInt(app.board.find("#team2").html()) || 0,
+      team1: scoreOverride
+        ? scoreOverride.team1
+        : app.pendingScores
+          ? app.pendingScores.team1
+          : parseInt(app.board.find("#team1").html()) || 0,
+      team2: scoreOverride
+        ? scoreOverride.team2
+        : app.pendingScores
+          ? app.pendingScores.team2
+          : parseInt(app.board.find("#team2").html()) || 0,
       wrong: parseInt(app.board.find("#wrongScore").html()) || 0,
       team1Name: app.board.find("#teamLabel1").text(),
       team2Name: app.board.find("#teamLabel2").text(),
+      revealedCards: [],
+      awardedCards: app.awardedCards.slice(),
+      roundScore: typeof roundScoreOverride === "number" ? roundScoreOverride : 0,
+      questionVisible: !app.board.find(".questionHide").is(":visible"),
     };
+    app.board.find(".card").each(function (index) {
+      if ($(this).data("flipped")) {
+        state.revealedCards.push(index);
+        if (
+          typeof roundScoreOverride !== "number" &&
+          app.awardedCards.indexOf(index) === -1
+        ) {
+          state.roundScore += parseInt($(this).find("b").text(), 10) || 0;
+        }
+      }
+    });
     localStorage.setItem("feudGameState", JSON.stringify(state));
   },
   loadState: function () {
@@ -96,8 +120,12 @@ var app = {
     var customData = localStorage.getItem("feudQuestionsData");
     if (customData) {
       try {
-        app.jsonLoaded(JSON.parse(customData));
-        return;
+        var parsed = JSON.parse(customData);
+        if (!validateQuestionsData(parsed)) {
+          app.jsonLoaded(parsed);
+          return;
+        }
+        console.warn("Saved custom questions failed validation; using defaults.");
       } catch (e) {
         console.warn(
           "Saved custom questions were invalid, falling back to default.",
@@ -121,6 +149,7 @@ var app = {
     });
     //app.shuffle(app.questions);
     var saved = app.loadState();
+    app.currentQ = 0;
     if (
       saved &&
       typeof saved.currentQ === "number" &&
@@ -130,12 +159,14 @@ var app = {
     }
     app.makeQuestion(app.currentQ);
     $("body").append(app.board);
+    app.board.append($("#wrongImagePerTeam"));
     if (saved) {
-      app.board.find("#team1").html(saved.team1 || 0);
-      app.board.find("#team2").html(saved.team2 || 0);
-      app.board.find("#wrongScore").html(saved.wrong || 0);
-      if (saved.wrong > 0) {
-        renderWrongMarks(saved.wrong);
+      var savedWrong = Math.max(0, Math.min(3, Number(saved.wrong) || 0));
+      app.board.find("#team1").text(Number(saved.team1) || 0);
+      app.board.find("#team2").text(Number(saved.team2) || 0);
+      app.board.find("#wrongScore").text(savedWrong);
+      if (savedWrong > 0) {
+        renderWrongMarks(savedWrong);
       }
       if (saved.team1Name) {
         app.applyTeamName("1", saved.team1Name);
@@ -143,7 +174,21 @@ var app = {
       if (saved.team2Name) {
         app.applyTeamName("2", saved.team2Name);
       }
+      app.applySavedRoundState(saved);
     }
+  },
+  applySavedRoundState: function (saved) {
+    if (!saved) return;
+    var cards = app.board.find(".card");
+    app.awardedCards = Array.isArray(saved.awardedCards) ? saved.awardedCards : [];
+    cards.each(function (index) {
+      var flipped =
+        Array.isArray(saved.revealedCards) &&
+        saved.revealedCards.indexOf(index) !== -1;
+      $(this).data("flipped", flipped).toggleClass("flipped", flipped);
+    });
+    app.board.find("#boardScore").text(Math.max(0, Number(saved.roundScore) || 0));
+    app.board.find(".questionHide").toggle(!saved.questionVisible);
   },
   // Action functions
   makeQuestion: function (q) {
@@ -166,7 +211,8 @@ var app = {
     var col2 = app.board.find(".col2");
 
     boardScore.html(0);
-    question.html(qText.replace(/&x22;/gi, '"'));
+    app.awardedCards = [];
+    question.text(qText.replace(/&x22;/gi, '"'));
     col1.empty();
     col2.empty();
 
@@ -174,31 +220,10 @@ var app = {
       if (window.CP.shouldStopExecution(1)) break;
       var aLI;
       if (qAnswr[i]) {
-        aLI = $(
-          "<div class='cardHolder' id='card_" +
-            (i + 1) +
-            "'>" +
-            "<div class='card'>" +
-            "<div class='front'>" +
-            "<div class='peekAnswer'>" +
-            qAnswr[i][0] +
-            " \u2014 " +
-            qAnswr[i][1] +
-            "</div>" +
-            "<span class='DBG'>" +
-            (i + 1) +
-            "</span>" +
-            "</div>" +
-            "<div class='back DBG'>" +
-            "<span>" +
-            qAnswr[i][0] +
-            "</span>" +
-            "<b class='LBG'>" +
-            qAnswr[i][1] +
-            "</b>" +
-            "</div>" +
-            "</div>" +
-            "</div>",
+        aLI = buildAnswerCard(
+          { answer: qAnswr[i][0], points: qAnswr[i][1] },
+          i,
+          true,
         );
       } else {
         aLI = $("<div class='cardHolder empty'><div></div></div>");
@@ -214,56 +239,76 @@ var app = {
     cards.data("flipped", false);
 
     function showCard() {
+      if (app.awardInProgress) return;
       var card = $(".card", this);
+      if (!card.length || !card.find(".back span").text().trim()) return;
       var flipped = card.data("flipped");
       card.toggleClass("flipped");
       flipped = !flipped;
       card.data("flipped", flipped);
       app.getBoardScore();
       correct.play();
-      localStorage.setItem("showCard", [
-        this.id,
-        Math.floor(Math.random() * 100),
-      ]);
+      app.saveState();
     }
 
     cardHolders.on("click", showCard);
 
     var roundLabel =
-      q === app.allData.length - 1
-        ? "Last Round"
-        : "Round #" + (app.currentQ + 1);
+      q === app.allData.length - 1 ? "Last Round" : "Round #" + (q + 1);
     app.board.find(".questionNumber").html(roundLabel);
+    app.board
+      .find("#newQuestion")
+      .toggleClass("disabled", q >= app.allData.length - 1);
+    requestAnimationFrame(fitMasterBoard);
   },
   getBoardScore: function () {
-    var cards = app.board.find(".card");
     var boardScore = app.board.find("#boardScore");
     var currentVal = parseInt(boardScore.html()) || 0;
-    var score = 0;
-
-    function tallyScore() {
-      if ($(this).data("flipped")) {
-        var value = $(this).find("b").html();
-        score += parseInt(value);
-      }
-    }
-
-    $.each(cards, tallyScore);
+    var score = app.calculateBoardScore();
     animateValue(currentVal, score, 1000, function (v) {
       boardScore.html(Math.round(v));
     });
   },
+  calculateBoardScore: function () {
+    var score = 0;
+    app.board.find(".card").each(function (index) {
+      if ($(this).data("flipped") && app.awardedCards.indexOf(index) === -1) {
+        score += parseInt($(this).find("b").text(), 10) || 0;
+      }
+    });
+    return score;
+  },
   awardPoints: function () {
+    if (app.awardInProgress) return;
     if (theme.paused) {
       theme.play();
     }
     var num = $(this).attr("data-team");
     var boardScore = app.board.find("#boardScore");
-    var currentScore = parseInt(boardScore.html()) || 0;
+    var currentScore = app.calculateBoardScore();
+    if (currentScore <= 0) return;
+    boardScore.text(currentScore);
+    app.awardInProgress = true;
     var team = app.board.find("#team" + num);
     var teamScoreStart = parseInt(team.html()) || 0;
     var teamScoreUpdated = teamScoreStart + currentScore;
-    localStorage.setItem("awardPoints", [num, Math.floor(Math.random() * 100)]);
+    app.board.find(".card").each(function (index) {
+      if ($(this).data("flipped") && app.awardedCards.indexOf(index) === -1) {
+        app.awardedCards.push(index);
+      }
+    });
+    app.pendingScores = {
+      team1:
+        num === "1"
+          ? teamScoreUpdated
+          : parseInt(app.board.find("#team1").text(), 10) || 0,
+      team2:
+        num === "2"
+          ? teamScoreUpdated
+          : parseInt(app.board.find("#team2").text(), 10) || 0,
+    };
+    boardScore.text(0);
+    app.saveState(0, app.pendingScores);
 
     if (currentScore) {
       console.log(
@@ -289,7 +334,9 @@ var app = {
         team.html(Math.round(v));
       },
       function () {
-        app.saveState();
+        app.saveState(0);
+        app.pendingScores = null;
+        app.awardInProgress = false;
       },
     );
 
@@ -299,12 +346,9 @@ var app = {
     //$("#newQuestion").click();
   },
   changeQuestion: function () {
+    if (app.awardInProgress || app.currentQ >= app.allData.length - 1) return;
     app.currentQ++;
     app.makeQuestion(app.currentQ);
-    localStorage.setItem("changeQuestion", [
-      app.currentQ,
-      Math.floor(Math.random() * 100),
-    ]);
     app.saveState();
   },
   addWrong: function () {
@@ -312,7 +356,7 @@ var app = {
 
     var scoreEl = app.board.find("#wrongScore");
     var wrongScore = { var: parseInt(scoreEl.html()) };
-    localStorage.setItem("addWrong", [Math.floor(Math.random() * 100)]);
+    if (wrongScore.var >= 3) return;
     scoreEl.html(wrongScore.var + 1);
     $("#wrongImage").show().delay(1000).fadeOut(500);
     if (wrongScore.var < 3) {
@@ -338,22 +382,19 @@ var app = {
       console.log(
         "Question " + (app.currentQ + 1) + " Wrong reverted to " + newVal,
       );
-      localStorage.setItem("revertWrong", [Math.floor(Math.random() * 100)]);
       app.saveState();
     }
   },
   showQuestion: function () {
     if (app.board.find(".questionHide").is(":visible")) {
       app.board.find(".questionHide").hide();
-      localStorage.setItem("showQuestion", Math.floor(Math.random() * 100));
     } else {
       app.board.find(".questionHide").show();
-      localStorage.setItem("showQuestion", Math.floor(Math.random() * 100));
     }
+    app.saveState();
   },
   hideQuestion: function () {
     app.board.find(".questionHide").show();
-    localStorage.setItem("hideQuestion", Math.floor(Math.random() * 100));
   },
   playTheme: function () {
     theme.play();
@@ -375,6 +416,7 @@ var app = {
     theme.currentTime = 0;
   },
   resetGame: function () {
+    if (app.awardInProgress) return;
     if (
       !confirm(
         "Reset the game? This clears both team scores and returns to Round #1.",
@@ -388,7 +430,6 @@ var app = {
     resetWrong();
     app.makeQuestion(app.currentQ);
     app.saveState();
-    localStorage.setItem("resetGame", Math.floor(Math.random() * 100));
   },
   updateLockButtonLabel: function () {
     var isLocked = localStorage.getItem("feudLockScreen") === "true";
@@ -426,15 +467,52 @@ var app = {
 
 app.init();
 
+function fitMasterBoard() {
+  var board = app.board && app.board[0];
+  var page = document.querySelector(".masterPage");
+  if (!board || !board.isConnected || !page) return;
+
+  var width = board.offsetWidth;
+  var height = board.offsetHeight;
+  if (!width || !height) return;
+
+  var availableWidth = Math.max(1, page.clientWidth - 12);
+  var availableHeight = Math.max(1, page.clientHeight - 12);
+  var scale = Math.min(availableWidth / width, availableHeight / height);
+  board.style.setProperty("--fit-scale", String(scale));
+}
+
+requestAnimationFrame(fitMasterBoard);
+window.addEventListener("resize", fitMasterBoard);
+
+window.addEventListener("storage", function (event) {
+  if (event.key !== "feudQuestionsData") return;
+  var data = questionsData;
+  if (event.newValue) {
+    try {
+      var imported = JSON.parse(event.newValue);
+      if (!validateQuestionsData(imported)) data = imported;
+    } catch (e) {
+      console.warn("Could not load imported question data:", e);
+    }
+  }
+  app.allData = data.rounds;
+  app.questions = app.allData.map(function (round) {
+    return round.question;
+  });
+  app.currentQ = 0;
+  app.board.find("#team1, #team2").text(0);
+  app.applyTeamName("1", "Team 1");
+  app.applyTeamName("2", "Team 2");
+  resetWrong();
+  app.makeQuestion(0);
+  app.saveState();
+});
+
 function adjustScore(teamNum, points) {
   var team = app.board.find("#team" + teamNum);
   team.html(Math.round(points));
   console.log("Adjusted team " + teamNum + " scores to " + points);
-  localStorage.setItem("adjustScore", [
-    teamNum,
-    points,
-    Math.floor(Math.random() * 100),
-  ]);
   app.saveState();
 }
 
@@ -443,10 +521,6 @@ function adjustQuestion(questionNum) {
   app.makeQuestion(app.currentQ);
 
   console.log("Adjusted question marker to " + (app.currentQ + 1));
-  localStorage.setItem("adjustQuestion", [
-    questionNum,
-    Math.floor(Math.random() * 100),
-  ]);
   app.saveState();
 }
 
@@ -460,10 +534,6 @@ function adjustWrong(points) {
     renderWrongMarks(points);
   }
   console.log("Adjusted wrong count to " + points);
-  localStorage.setItem("adjustWrong", [
-    points,
-    Math.floor(Math.random() * 100),
-  ]);
   app.saveState();
 }
 
@@ -472,15 +542,10 @@ function addWrong() {
   var scoreEl = app.board.find("#wrongScore");
   var wrongScore = { var: parseInt(scoreEl.html()) };
   adjustWrong(wrongScore.var + 1);
-  localStorage.setItem("addWrong", [Math.floor(Math.random() * 100)]);
 }
 
 function renameTeam(teamNum, name) {
   app.applyTeamName(teamNum, name);
   console.log("Renamed team " + teamNum + " to " + name);
-  localStorage.setItem(
-    "teamName",
-    JSON.stringify([teamNum, name, Math.floor(Math.random() * 100)]),
-  );
   app.saveState();
 }

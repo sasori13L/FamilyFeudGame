@@ -17,15 +17,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 100%;
-        background: #0c4779;
-        /* Replace with your own background image filename */
+        min-height: 100vh;
+        box-sizing: border-box;
+        background-color: #071632;
         background-image:
-          linear-gradient(rgba(4, 20, 46, 0.55), rgba(4, 20, 46, 0.75)),
-          url("assets/images/background.png");
+          linear-gradient(rgba(4, 15, 38, 0.48), rgba(4, 15, 38, 0.68)),
+          url("assets/images/stage-background.png");
         background-size: cover;
-        background-position: center center;
+        background-position: center;
         background-repeat: no-repeat;
+        background-attachment: fixed;
       }
 
       .landing {
@@ -147,6 +148,7 @@
     </div>
 
     <script src="assets/js/questions.js"></script>
+    <script src="assets/js/question-utils.js"></script>
     <script>
       function importQuestions() {
         document.getElementById("importQuestionsInput").click();
@@ -164,22 +166,13 @@
             alert("That file is not valid JSON.");
             return;
           }
-          if (
-            !parsed ||
-            !Array.isArray(parsed.rounds) ||
-            parsed.rounds.length === 0
-          ) {
-            alert(
-              'That JSON doesn\'t look right \u2014 expected an object with a non-empty "rounds" array, like sample_question.json.',
-            );
+          var validationError = validateQuestionsData(parsed);
+          if (validationError) {
+            alert("Could not import questions: " + validationError);
             return;
           }
           localStorage.setItem("feudQuestionsData", JSON.stringify(parsed));
           localStorage.removeItem("feudGameState");
-          localStorage.setItem(
-            "questionsImported",
-            Math.floor(Math.random() * 100),
-          );
           alert(
             "Imported " +
               parsed.rounds.length +
@@ -207,10 +200,6 @@
         }
         localStorage.removeItem("feudQuestionsData");
         localStorage.removeItem("feudGameState");
-        localStorage.setItem(
-          "questionsImported",
-          Math.floor(Math.random() * 100),
-        );
         alert("Restored the default sample_question.json.");
       }
 
